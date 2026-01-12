@@ -35,7 +35,7 @@ Opens at: `http://localhost:8081`
 **Option 1: Vercel (Easiest)**
 ```bash
 npm run build:web
-cd web-build
+cd dist
 vercel --prod
 ```
 Result: `https://strong-for-40.vercel.app`
@@ -43,12 +43,12 @@ Result: `https://strong-for-40.vercel.app`
 **Option 2: Netlify**
 ```bash
 npm run build:web
-# Upload web-build folder to netlify.com
+# Upload dist folder to netlify.com
 ```
 
 **Option 3: Any Static Host**
 - Build with `npm run build:web`
-- Upload `web-build` folder to any host
+- Upload `dist` folder to any host
 - Works with GitHub Pages, Cloudflare, AWS S3, etc.
 
 ---

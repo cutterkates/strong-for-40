@@ -58,21 +58,23 @@ BEGIN
     (v_user_id, v_career_area_id, 'Prepare Q1 presentation', NULL, 'next', 120, NULL, 2);
   
   -- ============================================================================
-  -- STANDARDS (formerly HABITS) - Brand defaults for "Strong for 40"
+  -- STANDARDS (formerly HABITS) - NON-NEGOTIABLE + OPTIONAL
   -- ============================================================================
-  INSERT INTO habits (user_id, area_id, name, description, frequency_type, weekly_target, color, icon, sort_order)
+  
+  -- NON-NEGOTIABLE STANDARDS (Cannot be deleted)
+  INSERT INTO habits (user_id, area_id, name, description, frequency_type, weekly_target, color, icon, is_required, sort_order)
   VALUES
-    -- Core daily standards
-    (v_user_id, v_health_area_id, 'Meditation', '10 minutes of mindfulness', 'daily', NULL, '#8B5CF6', '🧘‍♂️', 1),
-    (v_user_id, NULL, 'Coffee', 'Morning ritual', 'daily', NULL, '#78350F', '☕', 2),
-    (v_user_id, v_health_area_id, '10-min walk', 'Daily movement outside', 'daily', NULL, '#10B981', '🚶', 3),
-    (v_user_id, v_health_area_id, 'Stretch', 'Morning mobility routine', 'daily', NULL, '#EC4899', '🤸', 4),
-    (v_user_id, v_health_area_id, 'Water', 'Hydration check (8 glasses)', 'daily', NULL, '#0EA5E9', '💧', 5),
-    (v_user_id, NULL, 'Kids dropoff done', 'Morning routine complete', 'daily', NULL, '#F59E0B', '🚗', 6),
-    -- Weekly standards
-    (v_user_id, v_health_area_id, 'Workout', 'Strength training (Mon/Wed/Fri)', 'weekly', 3, '#EF4444', '💪', 7),
-    (v_user_id, NULL, 'Read for 30 min', 'Books or articles', 'daily', NULL, '#6366F1', '📚', 8),
-    (v_user_id, v_career_area_id, 'Deep Work', '2-hour focused work block', 'weekly', 5, '#3B82F6', '🎯', 9);
+    (v_user_id, v_health_area_id, '10 min Meditation', 'Daily mindfulness practice', 'daily', NULL, '#8B5CF6', '🧘‍♂️', true, 1),
+    (v_user_id, NULL, 'Read 20 Pages', 'Daily reading habit', 'daily', NULL, '#6366F1', '📚', true, 2),
+    (v_user_id, v_health_area_id, 'Glass of Water', 'Stay hydrated', 'daily', NULL, '#0EA5E9', '💧', true, 3),
+    (v_user_id, v_health_area_id, 'Workout', 'Strength training (3x per week)', 'weekly', 3, '#EF4444', '💪', true, 4),
+    
+  -- OPTIONAL STANDARDS (Can be deleted)
+    (v_user_id, NULL, 'Coffee', 'Morning ritual', 'daily', NULL, '#78350F', '☕', false, 5),
+    (v_user_id, v_health_area_id, '10-min walk', 'Daily movement outside', 'daily', NULL, '#10B981', '🚶', false, 6),
+    (v_user_id, v_health_area_id, 'Stretch', 'Morning mobility routine', 'daily', NULL, '#EC4899', '🤸', false, 7),
+    (v_user_id, NULL, 'Kids dropoff done', 'Morning routine complete', 'daily', NULL, '#F59E0B', '🚗', false, 8),
+    (v_user_id, NULL, 'Deep Work', '2-hour focused work block', 'weekly', 5, '#3B82F6', '🎯', false, 9);
   
   -- Log some habit completions for the past week
   INSERT INTO habit_logs (user_id, habit_id, completed_date)

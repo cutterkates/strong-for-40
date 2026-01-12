@@ -41,7 +41,7 @@ Replace your package.json `scripts` section:
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "expo export:web"
+    "build:web": "expo export --platform web"
   }
 }
 ```
@@ -113,7 +113,7 @@ module.exports = function(api) {
 node_modules/
 .expo/
 dist/
-web-build/
+dist/
 .env
 .DS_Store
 *.swp

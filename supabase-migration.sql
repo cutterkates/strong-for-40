@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS habits (
     color TEXT DEFAULT '#10B981',
     icon TEXT,
     is_active BOOLEAN DEFAULT true,
+    is_required BOOLEAN DEFAULT false, -- Non-negotiable standards that can't be deleted
     sort_order INTEGER DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -349,14 +350,12 @@ BEGIN
     SELECT id INTO v_health_area_id FROM areas WHERE user_id = p_user_id AND name = 'Health & Fitness';
     
     -- Create default standards (preloaded habits for brand identity)
-    INSERT INTO habits (user_id, area_id, name, description, frequency_type, weekly_target, color, icon, sort_order) VALUES
-        (p_user_id, v_health_area_id, 'Meditation', '10 minutes of mindfulness', 'daily', NULL, '#8B5CF6', '🧘‍♂️', 1),
-        (p_user_id, NULL, 'Coffee', 'Morning ritual', 'daily', NULL, '#78350F', '☕', 2),
-        (p_user_id, v_health_area_id, '10-min walk', 'Daily movement outside', 'daily', NULL, '#10B981', '🚶', 3),
-        (p_user_id, v_health_area_id, 'Stretch', 'Morning mobility routine', 'daily', NULL, '#EC4899', '🤸', 4),
-        (p_user_id, v_health_area_id, 'Water', 'Hydration check (8 glasses)', 'daily', NULL, '#0EA5E9', '💧', 5),
-        (p_user_id, NULL, 'Kids dropoff done', 'Morning routine complete', 'daily', NULL, '#F59E0B', '🚗', 6),
-        (p_user_id, v_health_area_id, 'Workout', 'Strength training (Mon/Wed/Fri)', 'weekly', 3, '#EF4444', '💪', 7);
+    -- NON-NEGOTIABLE STANDARDS (is_required = true)
+    INSERT INTO habits (user_id, area_id, name, description, frequency_type, weekly_target, color, icon, is_required, sort_order) VALUES
+        (p_user_id, v_health_area_id, '10 min Meditation', 'Daily mindfulness practice', 'daily', NULL, '#8B5CF6', '🧘‍♂️', true, 1),
+        (p_user_id, NULL, 'Read 20 Pages', 'Daily reading habit', 'daily', NULL, '#6366F1', '📚', true, 2),
+        (p_user_id, v_health_area_id, 'Glass of Water', 'Stay hydrated', 'daily', NULL, '#0EA5E9', '💧', true, 3),
+        (p_user_id, v_health_area_id, 'Workout', 'Strength training (3x per week)', 'weekly', 3, '#EF4444', '💪', true, 4);
     
     -- Create default user preferences
     INSERT INTO user_preferences (user_id) VALUES (p_user_id)

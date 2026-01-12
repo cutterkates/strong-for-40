@@ -59,12 +59,12 @@ npm install -g vercel
 
 2. **Build for web:**
 ```bash
-npx expo export:web
+npx expo export --platform web
 ```
 
 3. **Deploy:**
 ```bash
-cd web-build
+cd dist
 vercel --prod
 ```
 
@@ -83,7 +83,7 @@ vercel domains add yourdomain.com
 
 1. **Build:**
 ```bash
-npx expo export:web
+npx expo export --platform web
 ```
 
 2. **Install Netlify CLI:**
@@ -93,11 +93,11 @@ npm install -g netlify-cli
 
 3. **Deploy:**
 ```bash
-cd web-build
+cd dist
 netlify deploy --prod
 ```
 
-Or use Netlify's drag-and-drop: Just drag `web-build` folder to netlify.com
+Or use Netlify's drag-and-drop: Just drag `dist` folder to netlify.com
 
 ---
 
@@ -107,10 +107,10 @@ Works with: GitHub Pages, Cloudflare Pages, AWS S3, DigitalOcean, etc.
 
 1. **Build:**
 ```bash
-npx expo export:web
+npx expo export --platform web
 ```
 
-2. **Upload `web-build` folder** to any static host
+2. **Upload `dist` folder** to any static host
 
 3. **Configure:**
 - Set `index.html` as entry point
@@ -301,9 +301,9 @@ Design for mobile, enhance for desktop:
 
 **Fix:**
 ```bash
-rm -rf node_modules web-build
+rm -rf node_modules dist
 npm install
-npx expo export:web
+npx expo export --platform web
 ```
 
 ### Issue: Supabase not connecting
@@ -406,7 +406,7 @@ Web → iOS → Android
 ### Before Deployment:
 
 - [ ] Update `.env` with production Supabase credentials
-- [ ] Run `npx expo export:web` to build
+- [ ] Run `npx expo export --platform web` to build
 - [ ] Test in production-like environment
 - [ ] Verify all features work
 - [ ] Test on multiple browsers

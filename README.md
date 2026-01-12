@@ -30,14 +30,26 @@ A comprehensive life operating system **web app** (also works on iOS & Android) 
 - Clean status-based grouping
 
 ### ⭐ Standards
-**Your brand from day one - preloaded standards:**
-- Daily: Meditation, Coffee, 10-min walk, Stretch, Water, Kids dropoff done
-- Weekly: Workout (Mon/Wed/Fri - 3x per week)
+
+**4 Non-Negotiable Standards (Core Commitments):**
+- ⭐ **10 min Meditation** (Daily) - Mental clarity
+- ⭐ **Read 20 Pages** (Daily) - Continuous learning
+- ⭐ **Glass of Water** (Daily) - Basic health
+- ⭐ **Workout** (3x Weekly - Mon/Wed/Fri) - Physical strength
+
+**These cannot be deleted** - they're your baseline commitments.
+
+**Optional Standards (Customizable):**
+- Add your own standards
+- Delete what doesn't work
+- Full flexibility
+
+**Features:**
 - Visual week view with completion tracking
 - **Weekly progress bars** - See "2/3 complete" with visual indicator
 - Automatic streak calculation (respects user-defined week start)
-- **Add custom standards** - Create your own
-- **Delete standards** - Remove unwanted ones (× button on each card)
+- **Lock icon (🔒)** on required standards
+- **Delete (×)** available for optional standards
 - Tap to complete, build consistency
 
 ### 💪 Training
