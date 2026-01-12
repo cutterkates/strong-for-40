@@ -26,6 +26,7 @@ interface Habit {
   color: string | null;
   icon: string | null;
   is_active: boolean;
+  is_required: boolean;
 }
 
 interface HabitLog {
@@ -232,10 +233,19 @@ export default function StandardsScreen() {
     }
   };
 
-  const deleteHabit = async (habitId: string, habitName: string) => {
+  const deleteHabit = async (habitId: string, habitName: string, isRequired: boolean) => {
+    if (isRequired) {
+      Alert.alert(
+        'Cannot Delete',
+        `"${habitName}" is a non-negotiable standard and cannot be deleted. This is one of your core commitments.`,
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
     Alert.alert(
       'Delete Standard',
-      `Are you sure you want to delete "${habitName}"? This will also delete all completion history.`,
+      `Are you sure you want to delete "${habitName}"?`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -307,6 +317,12 @@ export default function StandardsScreen() {
         ) : (
           habits.map(habit => (
             <View key={habit.id} style={styles.habitCard}>
+              {habit.is_required && (
+                <View style={styles.requiredBadge}>
+                  <Text style={styles.requiredBadgeText}>⭐ NON-NEGOTIABLE</Text>
+                </View>
+              )}
+              
               <View style={styles.habitHeader}>
                 <View style={styles.habitInfo}>
                   <Text style={styles.habitName}>{habit.name}</Text>
@@ -329,10 +345,15 @@ export default function StandardsScreen() {
                   </TouchableOpacity>
                   
                   <TouchableOpacity
-                    style={styles.deleteButton}
-                    onPress={() => deleteHabit(habit.id, habit.name)}
+                    style={[
+                      styles.deleteButton,
+                      habit.is_required && styles.deleteButtonDisabled,
+                    ]}
+                    onPress={() => deleteHabit(habit.id, habit.name, habit.is_required)}
                   >
-                    <Text style={styles.deleteButtonText}>×</Text>
+                    <Text style={styles.deleteButtonText}>
+                      {habit.is_required ? '🔒' : '×'}
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -519,6 +540,20 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
   },
+  requiredBadge: {
+    backgroundColor: '#854D0E',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
+  requiredBadgeText: {
+    color: '#FDE68A',
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
   habitHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -563,6 +598,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#7F1D1D',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  deleteButtonDisabled: {
+    backgroundColor: '#475569',
   },
   deleteButtonText: {
     color: '#FFFFFF',
